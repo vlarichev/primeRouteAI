@@ -1,0 +1,21 @@
+Percentage of Requirements Completed
+Number of Change Requests Received
+Milestones Achieved on Time
+Average Task Completion Time
+Number of Identified Risks
+Number of Team Meetings Held
+Number of Stakeholder Meetings Held
+Stakeholder Feedback Score
+Percentage of Objectives Met
+Number of Scope Changes Approved
+Percentage of Resources Utilized
+Number of Training Sessions Conducted
+Number of Market Research Reports Completed
+Contingency Budget Utilization Rate
+Number of Quality Reviews Conducted
+Percentage of Defect Resolution
+Percentage of Budget Spent
+Number of Budget Variance Reports
+Percentage of Tasks Completed on Schedule
+Average Delay per Task
+Team Satisfaction Score

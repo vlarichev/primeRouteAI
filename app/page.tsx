@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useCallback } from "react";
-import { ProjectSuccessFactorsTable } from "@/components/project-success-factors-table";
-import { EntityExtractionSentiment } from "@/components/entity-extraction-sentiment";
+import ProjectSuccessFactorsTable from "@/components/project-success-factors-table";
+import EntityExtractionSentiment from "@/components/entity-extraction-sentiment";
 import { ProjectScore } from "@/components/project-score";
 import { AIThinkingEffect } from "@/components/ai-thinking-effect";
 
@@ -58,15 +58,12 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="w-full">
             <ProjectSuccessFactorsTable 
-              projectScore={projectScore} 
               updateScore={(change) => handleScoreUpdate(change, 'table')}
-              lastUpdateSource={lastUpdateSource}
               isLoading={isLoading}
             />
           </div>
           <div className="flex flex-col items-start justify-start">
             <EntityExtractionSentiment 
-              projectScore={projectScore} 
               updateScore={(change) => handleScoreUpdate(change, 'sentiment')}
               isLoading={isLoading}
             />

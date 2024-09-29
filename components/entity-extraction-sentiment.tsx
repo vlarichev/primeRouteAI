@@ -52,14 +52,17 @@ const SentimentBadge = ({ sentiment }: { sentiment: Sentiment }) => {
 // Remove the OpenAI initialization and analyzeEntities function
 
 interface EntityExtractionSentimentProps {
-  projectScore: number;
   updateScore: (change: number) => void;
   isLoading: boolean;
 }
 
-export function EntityExtractionSentiment({ projectScore, updateScore, isLoading }: EntityExtractionSentimentProps) {
+export default function EntityExtractionSentiment({
+  updateScore,
+  isLoading
+}: EntityExtractionSentimentProps) {
   const [text, setText] = useState('')
-  const [isEditing, setIsEditing] = useState(true)
+  // Remove unused state variables
+  // const [isEditing, setIsEditing] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [results, setResults] = useState<AnalysisResult[]>([])
   const [successFactors, setSuccessFactors] = useState<string[]>([])

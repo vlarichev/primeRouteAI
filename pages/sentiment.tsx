@@ -1,11 +1,9 @@
 import { useState } from 'react'
-import { useRouter } from 'next/router'
 
 export default function SentimentAnalysis() {
   const [sentence, setSentence] = useState('')
   const [sentiment, setSentiment] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
 
   const analyzeSentiment = async (e: React.FormEvent) => {
     e.preventDefault()

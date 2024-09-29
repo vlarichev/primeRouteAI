@@ -22,9 +22,10 @@ export function ProjectScore({ initialScore }: ProjectScoreProps) {
     return () => clearTimeout(timer)
   }, [projectScore])
 
-  const updateScore = (change: number) => {
-    setProjectScore(prevScore => Math.max(1, Math.min(100, prevScore + change)))
-  }
+  // Remove the unused updateScore function
+  // const updateScore = (change: number) => {
+  //   setProjectScore(prevScore => Math.max(1, Math.min(100, prevScore + change)))
+  // }
 
   const radius = 50
   const circumference = 2 * Math.PI * radius

@@ -1,19 +1,16 @@
 "use client"
 
-import { useState, useCallback, useMemo, useEffect } from "react"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { ProjectScore } from "@/components/project-score"
+import React from 'react';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
+// import ProjectScore from './project-score';
 
 interface ProjectSuccessFactorsTableProps {
-  projectScore: number;
   updateScore: (change: number) => void;
-  lastUpdateSource: 'table' | 'sentiment' | null;
   isLoading: boolean;
 }
 
-export function ProjectSuccessFactorsTable({ projectScore, updateScore, lastUpdateSource, isLoading }: ProjectSuccessFactorsTableProps) {
+const ProjectSuccessFactorsTable: React.FC<ProjectSuccessFactorsTableProps> = ({ updateScore, isLoading }) => {
   const initialProjectFactors = [
     { category: "Project Planning and Management", factor: "Percentage of Requirements Completed", weight: "15%", currentState: "55", valueType: "%" },
     { category: "Project Planning and Management", factor: "Number of Change Requests Received", weight: "10%", currentState: "8", valueType: "Requests" },
@@ -38,10 +35,10 @@ export function ProjectSuccessFactorsTable({ projectScore, updateScore, lastUpda
     { category: "Team Performance and Dynamics", factor: "Team Satisfaction Score", weight: "5%", currentState: "75", valueType: "%" },
   ]
 
-  const [projectFactors, setProjectFactors] = useState(initialProjectFactors)
-  const [lastCalculatedScore, setLastCalculatedScore] = useState(projectScore)
+  const [projectFactors, setProjectFactors] = React.useState(initialProjectFactors)
+  const [lastCalculatedScore, setLastCalculatedScore] = React.useState(0)
 
-  const calculateWeightedSum = useCallback(() => {
+  const calculateWeightedSum = React.useCallback(() => {
     return projectFactors.reduce((sum, factor) => {
       const weight = parseFloat(factor.weight) / 100
       const value = parseFloat(factor.currentState) || 0
@@ -49,7 +46,7 @@ export function ProjectSuccessFactorsTable({ projectScore, updateScore, lastUpda
     }, 0)
   }, [projectFactors])
 
-  const regenerateRandomNumbers = useCallback(() => {
+  const regenerateRandomNumbers = React.useCallback(() => {
     setProjectFactors(prevFactors =>
       prevFactors.map(factor => ({
         ...factor,
@@ -58,7 +55,7 @@ export function ProjectSuccessFactorsTable({ projectScore, updateScore, lastUpda
     )
   }, [])
 
-  const handleCurrentStateChange = useCallback((index: number, value: string) => {
+  const handleCurrentStateChange = React.useCallback((index: number, value: string) => {
     setProjectFactors(prevFactors =>
       prevFactors.map((factor, i) =>
         i === index ? { ...factor, currentState: value } : factor
@@ -66,13 +63,13 @@ export function ProjectSuccessFactorsTable({ projectScore, updateScore, lastUpda
     )
   }, [])
 
-  useEffect(() => {
+  React.useEffect(() => {
     const newWeightedSum = calculateWeightedSum()
     const newScore = Math.round(Math.max(1, Math.min(90, newWeightedSum)))
     
     if (newScore !== lastCalculatedScore) {
       console.log(`ProjectSuccessFactorsTable: Updating score from ${lastCalculatedScore} to ${newScore}`);
-      updateScore(newScore - lastCalculatedScore)
+      updateScore(newScore - lastCalculatedScore) // Use updateScore instead of onFactorChange
       setLastCalculatedScore(newScore)
     }
   }, [projectFactors, updateScore, calculateWeightedSum, lastCalculatedScore])
@@ -83,9 +80,13 @@ export function ProjectSuccessFactorsTable({ projectScore, updateScore, lastUpda
         Here are current hard facts, scanned from your project...
       </div>
       <div className="flex justify-between items-center mb-4">
-        <Button onClick={regenerateRandomNumbers} disabled={isLoading}>
+        <button
+          onClick={regenerateRandomNumbers}
+          disabled={isLoading}
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
+        >
           {isLoading ? 'AI is thinking...' : 'Reload your project'}
-        </Button>
+        </button>
       </div>
       <div className="overflow-x-auto">
         <Table className="border-collapse border border-slate-400">
@@ -112,7 +113,7 @@ export function ProjectSuccessFactorsTable({ projectScore, updateScore, lastUpda
                     className="w-full h-full text-center bg-transparent border-none focus:ring-0"
                     min="0"
                     max="100"
-                    disabled={isLoading}
+                    disabled={false}
                   />
                 </TableCell>
                 <TableCell className="border border-slate-300 text-center">{factor.valueType}</TableCell>
@@ -124,3 +125,5 @@ export function ProjectSuccessFactorsTable({ projectScore, updateScore, lastUpda
     </div>
   )
 }
+
+export default ProjectSuccessFactorsTable;

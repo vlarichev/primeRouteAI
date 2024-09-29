@@ -16,7 +16,7 @@ We are developing a cutting-edge AI system designed to revolutionize project man
 
 5. **Customizable Criteria Weighting**: Allows organizations to adjust the importance of various factors based on their unique needs and project types.
 
-## Current Development Status
+## Current Development Status:
 
 - [x] Core AI model architecture
 - [x] Integration of quantitative data sources

@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import OpenAI from 'openai'
-import axios from 'axios'
 import successFactorsConfig from '../../success-factors.json'
 
 // Check if the API key is available
@@ -68,16 +67,7 @@ Example response:
     }
   } catch (error) {
     console.error('Error analyzing entities:', error);
-    if (error instanceof OpenAI.APIError) {
-      res.status(error.status || 500).json({ entities: [], error: error.message });
-    } else if (axios.isAxiosError(error)) {
-      // Handle Axios error
-      res.status(error.response.status || 500).json({ 
-        entities: [], 
-        error: `Network error: ${error.message}`
-      });
-    } else {
-      res.status(500).json({ entities: [], error: 'Internal Server Error' });
-    }
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    res.status(500).json({ entities: [], error: `Error analyzing entities: ${errorMessage}` });
   }
 }
